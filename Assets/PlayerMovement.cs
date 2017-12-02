@@ -71,11 +71,11 @@ public class PlayerMovement : MonoBehaviour {
 			Debug.Log (this.name + " hit " + col.transform.parent.name);
 			if (this.gameObject.name != col.transform.parent.name) {
 				soundManager.PlaySlapSound ();
-//				if (this.l) {
-//					this.rb.AddForce (new Vector2 (-1000, 0));
-//				} else if (horizontalAxis == -1) {
-//					this.rb.AddForce (new Vector2 (1000, 0));
-//				}
+				if (this.rb.velocity.y == 0) {
+					this.rb.AddForce (new Vector2 (-1500, 200));
+				} else {
+					this.rb.AddForce (new Vector2 (1500, 0));
+				}
 			}
 		}
 	}
