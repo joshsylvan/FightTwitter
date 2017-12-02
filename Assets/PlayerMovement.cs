@@ -11,11 +11,13 @@ public class PlayerMovement : MonoBehaviour {
 	public float speed = 3f;
 	float jumpPower = 400f;
 	public int controller = 1;
+	SoundManager soundManager;
 
 	XboxCtrlrInput.XboxController controlerID;
 
 	// Use this for initialization
 	void Start () {
+		this.soundManager = GameObject.Find ("GameManager").GetComponent<SoundManager> ();
 		anim = GetComponent<Animator> ();
 		rb = GetComponent<Rigidbody2D> ();
 
@@ -58,5 +60,23 @@ public class PlayerMovement : MonoBehaviour {
 
 	void FixedUpdate(){
 		this.rb.velocity = new Vector2 (horizontalAxis * speed * Time.fixedDeltaTime, this.rb.velocity.y);
+	}
+
+	public void IveBeenSlapped(){
+	
+	}
+
+	void OnTriggerEnter2D(Collider2D col){
+		if (col.name == "HandCollider") {
+			Debug.Log (this.name + " hit " + col.transform.parent.name);
+			if (this.gameObject.name != col.transform.parent.name) {
+				soundManager.PlaySlapSound ();
+//				if (this.l) {
+//					this.rb.AddForce (new Vector2 (-1000, 0));
+//				} else if (horizontalAxis == -1) {
+//					this.rb.AddForce (new Vector2 (1000, 0));
+//				}
+			}
+		}
 	}
 }
