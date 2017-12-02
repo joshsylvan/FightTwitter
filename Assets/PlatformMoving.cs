@@ -7,7 +7,7 @@ public class PlatformMoving : MonoBehaviour {
 	GameObject[] platforms;
 
 	int platformID = 0;
-	float randomSeconds = 10;
+	float randomSeconds = 5;
 
 	bool platformMoving = false;
 
@@ -19,27 +19,43 @@ public class PlatformMoving : MonoBehaviour {
 		for (int i = 0; i < this.transform.childCount; i++) {
 			platforms [i] = transform.GetChild (i).gameObject;
 		}
+//		oldPosition = platforms [0].transform.position;
+//		target = new Vector2 (oldPosition.x, oldPosition.y-6f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		randomSeconds -= Time.deltaTime;
 		if (randomSeconds <= 0 && !platformMoving) {
-			randomSeconds = Random.Range (0, 15);
+			randomSeconds = Random.Range (5, 6);
 			platformID = Random.Range (0, 3);
 			oldPosition = platforms [platformID].transform.position;
-			target = new Vector2 (oldPosition.x, oldPosition.y-2);
+			target = new Vector2 (oldPosition.x, oldPosition.y-7);
 			platformMoving = true;
 		}
 
-		if (platformMoving) {
+		if (platformMoving) {	
+			if (randomSeconds > 0) {
+				this.MoveDown (platformID);
+			} else {
+				this.MoveUp (platformID);
+				if (Vector2.Distance (this.platforms [platformID].transform.position, oldPosition) <= 0.1f) {
+					platformMoving = false;
+				}
+			}
 
-			Vector2 targetPosition = target;
-
-			Vector2 newPosition = Vector2.Lerp (platforms[platformID].transform.position, targetPosition, 1f * Time.deltaTime);
-
-			this.transform.position = new Vector3 (newPosition.x, newPosition.y, -10);
 		}
 
 	}
+
+	void MoveUp(int platformID){
+		Vector2 targetPosition = Vector2.Lerp(this.platforms[platformID].transform.position, oldPosition , .5f*Time.deltaTime);
+		this.platforms [platformID].transform.position = new Vector3 (targetPosition.x, targetPosition.y, 0);
+	}
+
+	void MoveDown(int platformID){
+		Vector2 targetPosition = Vector2.Lerp(this.platforms[platformID].transform.position, target , .5f*Time.deltaTime);
+		this.platforms [platformID].transform.position = new Vector3 (targetPosition.x, targetPosition.y, 0);
+	}
+
 }
