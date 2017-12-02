@@ -12,11 +12,13 @@ public class GameplayManager : MonoBehaviour {
 	public GameObject player1, player2;
 
 	public Text p1Text, p2Text;
-	public GetTwitterImage p1, p2;
+	public GetTwitterImage p1, p2, p1_1, p2_2;  // p1_1 and p2_2 are the img
 
 	// Use this for initialization
 	void Start () {
 		this.cameraFollow = Camera.main.GetComponent<CameraFollow> ();
+		this.p1_1.gameObject.SetActive (false);
+		this.p2_2.gameObject.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -48,7 +50,11 @@ public class GameplayManager : MonoBehaviour {
 		this.player2.transform.position = new Vector2 (3.6f, 0);
 		gameOver = false;
 		this.cameraFollow.ResetCamera ();
+		this.p1_1.gameObject.SetActive (true);
+		this.p2_2.gameObject.SetActive (true);
 		this.p1.LoadImage (this.p1Text.text);
+		this.p1_1.LoadImage (this.p1Text.text);
 		this.p2.LoadImage (this.p2Text.text);
+		this.p2_2.LoadImage (this.p2Text.text);
 	}
 }
