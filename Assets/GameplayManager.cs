@@ -44,6 +44,8 @@ public class GameplayManager : MonoBehaviour {
 		this.player2.transform.position = new Vector2 (3.6f, 0);
 		gameOver = false;
 		this.cameraFollow.ResetCamera ();
+		//
+
 	}
 
 
