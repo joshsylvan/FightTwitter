@@ -10,6 +10,9 @@ public class CameraFollow : MonoBehaviour {
 	float cameraSpeed = 1.5f;
 	float cameraOffset = 3f;
 
+	bool playerDead = false;
+	int playerID = 0;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -20,19 +23,53 @@ public class CameraFollow : MonoBehaviour {
 
 		if (gameStart) {
 
-			Vector3 targetPosition = (target1.transform.position + target2.transform.position) / 2;
+			if (playerDead) {
+				
+				Vector3 targetPosition;
+				if (playerID == 1) {
+					targetPosition = (target2.transform.position);
+				} else if (playerID == 2) {
+					targetPosition = (target1.transform.position);
+				} else {
+					targetPosition = Vector2.zero;
+				}
+
+				Vector3 newPosition = Vector3.Lerp (this.transform.position, targetPosition, cameraSpeed * Time.deltaTime);
+
+				this.transform.position = new Vector3 (newPosition.x, newPosition.y, -10);
+			} else {
+				Vector3 targetPosition = (target1.transform.position + target2.transform.position) / 2;
+
+				Vector3 newPosition = Vector3.Lerp (this.transform.position, targetPosition, cameraSpeed * Time.deltaTime);
+
+				this.transform.position = new Vector3 (newPosition.x, newPosition.y, -10);
+			}
+
+		} else {
+			Vector3 targetPosition = new Vector2 (0, 69);
 
 			Vector3 newPosition = Vector3.Lerp (this.transform.position, targetPosition, cameraSpeed * Time.deltaTime);
 
 			this.transform.position = new Vector3 (newPosition.x, newPosition.y, -10);
-
-		} else {
-		
 		}
 
 	}
 
+	public void PlayerDies(int ID){
+		this.playerDead = true;
+		this.playerID = ID;
+	}
+
 	public void StartGame(){
 		gameStart = true;
+	}
+
+	public void BackToMenu (){
+		gameStart = false;
+	}
+
+	public void ResetCamera(){
+		this.playerDead = false;
+		this.playerID = 0;
 	}
 }
