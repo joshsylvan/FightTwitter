@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour {
 			this.transform.localScale = new Vector3 (0.5f, 0.5f, 0.5f);
 			horizontalAxis = 1;
 		} else {
-			horizontalAxis = 0;
+			this.horizontalAxis = 0;
 		}
 
 		if (XboxCtrlrInput.XCI.GetButtonDown (XboxCtrlrInput.XboxButton.A, controlerID) && this.rb.velocity.y == 0) {
@@ -71,10 +71,11 @@ public class PlayerMovement : MonoBehaviour {
 			Debug.Log (this.name + " hit " + col.transform.parent.name);
 			if (this.gameObject.name != col.transform.parent.name) {
 				soundManager.PlaySlapSound ();
+				int direction = 0;
 				if (this.rb.velocity.y == 0) {
-					this.rb.AddForce (new Vector2 (-1500, 200));
+					this.rb.AddForce (new Vector2 (1700 * (this.transform.localScale.x*-2), 200));
 				} else {
-					this.rb.AddForce (new Vector2 (1500, 0));
+					this.rb.AddForce (new Vector2 (1700 * (this.transform.localScale.x*-2), 0));
 				}
 			}
 		}

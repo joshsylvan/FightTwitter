@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour {
 
 	public GameObject target1, target2;
+	bool gameStart = false;
 
 	float cameraSpeed = 1.5f;
 	float cameraOffset = 3f;
@@ -17,11 +18,21 @@ public class CameraFollow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		Vector3 targetPosition = (target1.transform.position + target2.transform.position)/2;
+		if (gameStart) {
 
-		Vector3 newPosition = Vector3.Lerp (this.transform.position, targetPosition, cameraSpeed * Time.deltaTime);
+			Vector3 targetPosition = (target1.transform.position + target2.transform.position) / 2;
 
-		this.transform.position = new Vector3 (newPosition.x, newPosition.y, -10);
+			Vector3 newPosition = Vector3.Lerp (this.transform.position, targetPosition, cameraSpeed * Time.deltaTime);
 
+			this.transform.position = new Vector3 (newPosition.x, newPosition.y, -10);
+
+		} else {
+		
+		}
+
+	}
+
+	public void StartGame(){
+		gameStart = true;
 	}
 }
