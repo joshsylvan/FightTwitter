@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameplayManager : MonoBehaviour {
 
@@ -9,6 +10,9 @@ public class GameplayManager : MonoBehaviour {
 	float ogWinCooldown = 3f;
 	bool gameOver = false;
 	public GameObject player1, player2;
+
+	public Text p1Text, p2Text;
+	public GetTwitterImage p1, p2;
 
 	// Use this for initialization
 	void Start () {
@@ -44,8 +48,7 @@ public class GameplayManager : MonoBehaviour {
 		this.player2.transform.position = new Vector2 (3.6f, 0);
 		gameOver = false;
 		this.cameraFollow.ResetCamera ();
+		this.p1.LoadImage (this.p1Text.text);
+		this.p2.LoadImage (this.p2Text.text);
 	}
-
-
-
 }
