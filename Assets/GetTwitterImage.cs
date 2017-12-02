@@ -5,10 +5,9 @@ using UnityEngine.UI;
 
 public class GetTwitterImage : MonoBehaviour {
 
-	public InputField field;
+	string username;
 
-	public IEnumerator LoadPlayerImage(){
-		string username = field.textComponent.text;
+	IEnumerator LoadPlayerImage(){
 		Debug.Log (username);
 		Texture2D tex;
 		tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
@@ -16,6 +15,11 @@ public class GetTwitterImage : MonoBehaviour {
 		yield return www;
 		www.LoadImageIntoTexture(tex);
 		GetComponent<Renderer>().material.mainTexture = tex;
+	}
+
+	public void LoadImage(string username){
+		this.username = username;
+		StartCoroutine (LoadPlayerImage());
 	}
 }
 
