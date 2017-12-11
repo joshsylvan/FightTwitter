@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +8,6 @@ public class GetTwitterImage : MonoBehaviour {
 	string username;
 
 	IEnumerator LoadPlayerImage(){
-		Debug.Log (username);
 		Texture2D tex;
 		tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
 		WWW www = new WWW("https://twitter.com/"+username+"/profile_image?size=original");
